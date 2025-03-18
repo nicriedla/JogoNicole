@@ -5,9 +5,9 @@ class Fase1 extends Phaser.Scene {
 
   preload() {
     // Carrega as imagens e spritesheets necessárias para o jogo
-    this.load.image("Background1", "src/assets/bg.png"); 
-    this.load.image("Bloco", "src/assets/tijolos.png"); 
-    this.load.image("porta", "src/assets/door.png"); 
+    this.load.image("Background1", "src/assets/bg.png");
+    this.load.image("Bloco", "src/assets/tijolos.png");
+    this.load.image("porta", "src/assets/door.png");
     this.load.spritesheet("Player", "src/assets/player.png", {
       frameWidth: 64,
       frameHeight: 64,
@@ -25,6 +25,16 @@ class Fase1 extends Phaser.Scene {
     var altura2 = 460; // Posição inicial das moedas no eixo Y
     var pontuacao = 0; // Variável que armazena a pontuação do jogo
     var placar;
+
+    // Evento de mudança de orientação da tela
+    game.scale.on("orientationchange", function (orientation) {
+      if (orientation === Phaser.Scale.PORTRAIT) {
+        console.log("PORTRAIT");
+      }
+      if (orientation === Phaser.Scale.LANDSCAPE) {
+        console.log("LANDSCAPE");
+      }
+    });
 
     // Adiciona a imagem de fundo e redimensiona para cobrir toda a tela
     let bg = this.add.image(0, 0, "Background1");
@@ -82,7 +92,7 @@ class Fase1 extends Phaser.Scene {
       repeat: 0,
     });
 
-    // Cria um grupo de moedas 
+    // Cria um grupo de moedas
     this.coinGroup = this.physics.add.staticGroup();
     for (var i = 0; i <= 2; i++) {
       let coin = this.coinGroup
@@ -113,8 +123,8 @@ class Fase1 extends Phaser.Scene {
 
     // Adiciona o placar na tela
     placar = this.add.text(115, 78, "Moedas: " + pontuacao, {
-      fontSize: "45px", 
-      fill: "#495613", 
+      fontSize: "45px",
+      fill: "#495613",
     });
 
     // Adiciona a lógica de coleta de moedas
